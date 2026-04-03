@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Dev utilities (not part of the extension)
+generate-icons.js
+
+# Chrome extension build artifacts
+*.zip
+
+# Editor
+.vscode/
+.idea/

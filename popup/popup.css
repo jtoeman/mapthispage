@@ -1,0 +1,241 @@
+/* ── Reset & Base ───────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 13px;
+  color: #202124;
+  background: #fff;
+  width: 500px;
+  min-width: 500px;
+  overflow-x: hidden;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  border-bottom: 1px solid #e0e0e0;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.logo { font-size: 17px; line-height: 1; }
+
+.app-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #202124;
+  letter-spacing: -0.2px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+/* ── Bulk action bar ─────────────────────────────────────────────────────────── */
+.bulk-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 12px;
+  background: #e8f0fe;
+  border-bottom: 1px solid #c5d8f7;
+}
+
+.selected-label {
+  font-size: 12px;
+  color: #1a73e8;
+  font-weight: 500;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────────────── */
+.btn {
+  padding: 5px 14px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  transition: background 0.12s;
+  line-height: 1.4;
+}
+
+.btn-primary {
+  background: #1a73e8;
+  color: #fff;
+  border-color: #1a73e8;
+}
+.btn-primary:hover { background: #1557b0; border-color: #1557b0; }
+.btn-primary:active { background: #0f3f7a; }
+
+.btn-secondary {
+  background: #fff;
+  color: #1a73e8;
+  border: 1px solid #dadce0;
+}
+.btn-secondary:hover { background: #f1f5ff; border-color: #1a73e8; }
+.btn-secondary:active { background: #e3eafc; }
+
+/* Maps icon button — sits in the action column */
+.btn-maps {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 28px;
+  font-size: 16px;
+  line-height: 1;
+  background: #fff;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.1s, border-color 0.1s;
+}
+.btn-maps:hover { background: #f1f5ff; border-color: #1a73e8; }
+.btn-maps:active { background: #e3eafc; }
+
+/* SLOT: save-to-list — a future "Save" button will live next to .btn-maps */
+
+/* ── State Panels ────────────────────────────────────────────────────────────── */
+.state-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 20px;
+  gap: 12px;
+  color: #5f6368;
+}
+
+.state-text { font-size: 13px; text-align: center; line-height: 1.5; }
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid #e0e0e0;
+  border-top-color: #1a73e8;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Results Table ───────────────────────────────────────────────────────────── */
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.results-table thead tr {
+  background: #f8f9fa;
+  border-bottom: 2px solid #e0e0e0;
+  position: sticky;
+  top: 0; /* thead is inside its own scroll container (#state-results), so 0 is correct */
+  z-index: 9;
+}
+
+.results-table th {
+  padding: 7px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #5f6368;
+  text-align: left;
+}
+
+.col-check   { width: 34px; text-align: center; }
+.col-place   { width: 36%; }
+.col-address { width: auto; }
+.col-action  { width: 52px; text-align: center; }
+
+/* ── Table Rows ──────────────────────────────────────────────────────────────── */
+.results-table tbody tr {
+  border-bottom: 1px solid #f1f3f4;
+  transition: background 0.08s;
+  cursor: default;
+}
+
+.results-table tbody tr:hover  { background: #f8f9fa; }
+.results-table tbody tr.selected { background: #e8f0fe; }
+.results-table tbody tr.selected:hover { background: #ddeafc; }
+
+.results-table td {
+  padding: 9px 10px;
+  vertical-align: middle;
+  font-size: 13px;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.td-check { text-align: center; }
+.td-action { text-align: center; padding: 6px 14px 6px 4px; } /* 14px right keeps button away from scrollbar */
+
+.place-text    { font-weight: 500; color: #202124; }
+.place-unknown { color: #9aa0a6; font-style: italic; }
+.address-text  { color: #3c4043; font-size: 12px; }
+
+/* Scroll-to-entry button — sits inline after the place name */
+.btn-scroll {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-left: 6px;
+  font-size: 9px;
+  line-height: 1;
+  background: none;
+  border: 1px solid #dadce0;
+  border-radius: 3px;
+  cursor: pointer;
+  color: #9aa0a6;
+  vertical-align: middle;
+  flex-shrink: 0;
+  transition: background 0.1s, border-color 0.1s, color 0.1s;
+}
+.btn-scroll:hover {
+  background: #f1f5ff;
+  border-color: #1a73e8;
+  color: #1a73e8;
+}
+
+/* ── Checkboxes ──────────────────────────────────────────────────────────────── */
+input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  accent-color: #1a73e8;
+  cursor: pointer;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────────── */
+.footer-bar {
+  padding: 7px 12px;
+  border-top: 1px solid #e0e0e0;
+  background: #f8f9fa;
+}
+
+.result-count { font-size: 11px; color: #80868b; }
+
+/* ── Utility ─────────────────────────────────────────────────────────────────── */
+.hidden { display: none !important; }
+
+/* Scrollable results area */
+#state-results {
+  max-height: 400px;
+  overflow-y: auto;
+}

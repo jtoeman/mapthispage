@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MapThisPage</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header class="header">
+    <div class="header-left">
+      <span class="logo">🗺</span>
+      <span class="app-title">MapThisPage</span>
+    </div>
+    <div class="header-right">
+      <button id="btn-scan" class="btn btn-secondary">Scan</button>
+    </div>
+  </header>
+
+  <!-- ── Bulk action bar (shown when rows are checked) ── -->
+  <div id="bulk-bar" class="bulk-bar hidden">
+    <span id="selected-label" class="selected-label">0 selected</span>
+    <button id="btn-open-selected" class="btn btn-primary">Open in Maps</button>
+  </div>
+
+  <!-- ── States ── -->
+  <div id="state-idle" class="state-panel">
+    <p class="state-text">Click <strong>Scan</strong> to find addresses on this page.</p>
+  </div>
+
+  <div id="state-loading" class="state-panel hidden">
+    <div class="spinner"></div>
+    <p class="state-text">Scanning page…</p>
+  </div>
+
+  <div id="state-empty" class="state-panel hidden">
+    <p class="state-text">No addresses found on this page.</p>
+  </div>
+
+  <!-- ── Results Table ── -->
+  <div id="state-results" class="hidden">
+    <table class="results-table">
+      <thead>
+        <tr>
+          <th class="col-check">
+            <input type="checkbox" id="chk-select-all" title="Select all" />
+          </th>
+          <th class="col-place">Place</th>
+          <th class="col-address">Address</th>
+          <th class="col-action"></th>
+        </tr>
+      </thead>
+      <tbody id="results-body">
+        <!-- Rows injected by popup.js -->
+      </tbody>
+    </table>
+    <div class="footer-bar">
+      <span id="result-count" class="result-count"></span>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
