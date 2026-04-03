@@ -5,7 +5,7 @@
     "service_worker": "background.js"
   },
   "version": "1.2.0",
-  "description": "Find addresses on any webpage and open them instantly in Google Maps.",
+  "description": "Find addresses on any webpage and open them instantly in Google Maps. Broad host permissions are required to scan pages proactively and display an address count badge before the popup is opened.",
   "action": {
     "default_popup": "popup/popup.html",
     "default_icon": {
