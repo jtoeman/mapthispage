@@ -231,6 +231,30 @@ input[type="checkbox"] {
 
 .result-count { font-size: 11px; color: #80868b; }
 
+/* ── Ko-fi support bar ───────────────────────────────────────────────────────── */
+.kofi-bar {
+  padding: 9px 12px;
+  border-top: 1px solid #e0e0e0;
+  background: #fff;
+  text-align: center;
+}
+
+.kofi-btn {
+  display: inline-block;
+  background: #72a4f2;
+  color: #fff;
+  border-radius: 4px;
+  padding: 6px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.1px;
+  transition: background 0.12s;
+}
+
+.kofi-btn:hover  { background: #5a8fd4; }
+.kofi-btn:active { background: #4a7bc4; }
+
 /* ── Utility ─────────────────────────────────────────────────────────────────── */
 .hidden { display: none !important; }
 

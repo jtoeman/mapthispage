@@ -16,28 +16,30 @@
   //
   // Two patterns run in sequence; deduplication ensures no address appears twice.
   //
-  // PATTERN A — Full address with ZIP (high confidence)
-  // Anchors on street number + street type at start, 5-digit ZIP at end.
-  // Handles both abbreviated (NY) and full state names (New York).
+  // PATTERN A — Full address with postcode (high confidence)
+  // Anchors on street number + street type at start, postcode at end.
+  // Supports: US ZIP, UK postcode, Canadian postal code, AU/NZ 4-digit.
   //
-  //   776 8th Avenue, New York, New York 10036
-  //   123 Main Street, Springfield, IL 62701
-  //   456 Oak Ave Suite 3, Boston, MA 02101-1234
+  //   776 8th Avenue, New York, New York 10036        (US)
+  //   14 Baker Street, London W1U 7BZ                 (UK)
+  //   123 Yonge St, Toronto, ON M5B 1N8               (Canada)
+  //   42 George Street, Sydney NSW 2000               (Australia)
   //
   const ADDRESS_REGEX =
-    /\b\d{1,5}\s+(?:[A-Za-z0-9.]+\s+){0,5}(?:Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|Drive|Dr|Lane|Ln|Court|Ct|Way|Place|Pl|Circle|Cir|Highway|Hwy|Parkway|Pkwy|Terrace|Ter|Trail|Trl|Loop|Run|Broadway|Square|Sq)\.?(?:[^<\n\r]{0,80}?)\d{5}(?:-\d{4})?\b/gi;
+    /\b\d{1,5}\s+(?:[A-Za-z0-9.]+\s+){0,5}(?:Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|Drive|Dr|Lane|Ln|Court|Ct|Way|Place|Pl|Circle|Cir|Highway|Hwy|Parkway|Pkwy|Terrace|Ter|Trail|Trl|Loop|Run|Broadway|Square|Sq|Close|Cl|Crescent|Cres|Grove|Mews|Rise|Walk|Gardens|Gdns|Gate|Hill|End|Row)\.?(?:[^<\n\r]{0,80}?)(?:\d{5}(?:-\d{4})?|[A-Z]{1,2}\d{1,2}[A-Z]?\s\d[A-Z]{2}|[A-Z]\d[A-Z]\s?\d[A-Z]\d|\d{4})\b/gi;
 
-  // PATTERN B — Editorial/short address without ZIP (moderate confidence)
+  // PATTERN B — Editorial/short address without postcode (moderate confidence)
   // How newspapers and food publications write addresses: street number + name,
-  // optional parenthetical cross-street, no ZIP required.
+  // optional parenthetical cross-street, no postcode required.
+  // Also catches AU/NZ addresses since their 4-digit codes are short enough
+  // that SHORT_ADDRESS_REGEX handles the no-postcode form naturally.
   //
-  //   961 Lexington Avenue (70th Street)
-  //   432 Lafayette Street
-  //   75 9th Avenue
-  //   1 World Trade Center
+  //   961 Lexington Avenue (70th Street)              (US editorial)
+  //   8 Mews Lane, London                             (UK editorial)
+  //   15 Ponsonby Road, Auckland                      (NZ editorial)
   //
   const SHORT_ADDRESS_REGEX =
-    /\b\d{1,5}\s+(?:[A-Za-z0-9.]+\s+){0,4}(?:Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|Drive|Dr|Lane|Ln|Court|Ct|Way|Place|Pl|Circle|Cir|Highway|Hwy|Parkway|Pkwy|Terrace|Ter|Trail|Trl|Loop|Run|Broadway|Square|Sq)\.?(?:\s*\([^)]{2,40}\))?\b/gi;
+    /\b\d{1,5}\s+(?:[A-Za-z0-9.]+\s+){0,4}(?:Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|Drive|Dr|Lane|Ln|Court|Ct|Way|Place|Pl|Circle|Cir|Highway|Hwy|Parkway|Pkwy|Terrace|Ter|Trail|Trl|Loop|Run|Broadway|Square|Sq|Close|Cl|Crescent|Cres|Grove|Mews|Rise|Walk|Gardens|Gdns|Gate|Hill|End|Row)\.?(?:\s*\([^)]{2,40}\))?\b/gi;
 
   // Tags/classes that suggest a place name element
   const HEADING_TAGS = new Set(['H1', 'H2', 'H3', 'H4', 'H5', 'H6']);

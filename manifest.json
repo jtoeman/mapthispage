@@ -4,8 +4,8 @@
   "background": {
     "service_worker": "background.js"
   },
-  "version": "1.2.0",
-  "description": "Find addresses on any webpage and open them instantly in Google Maps. Broad host permissions are required to scan pages proactively and display an address count badge before the popup is opened.",
+  "version": "1.3.0",
+  "description": "Find addresses and open them in gmaps. Broad host permissions required to scan pages proactively and display an address count badge",
   "action": {
     "default_popup": "popup/popup.html",
     "default_icon": {
